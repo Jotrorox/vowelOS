@@ -31,8 +31,8 @@ finishInput:
     int 0x10
     mov al, 0x0D
     int 0x10
-    lea bx, [userInput]
-    call printString
+    mov bx, cx
+    call printNumber
 
 jmp $
 
@@ -48,6 +48,13 @@ printString:
     int 0x10
     inc bx
     jmp printString
+
+printNumber:
+    add bx, '0'
+    mov ah, 0x0e
+    mov al, bl
+    int 0x10
+    ret
 
 return:
     ret
