@@ -6,7 +6,7 @@ build:
 
 run:
 	@make build
-	@qemu-system-x86_64 build/vocalOS.bin > /dev/null
+	@qemu-system-x86_64 -drive format=raw,file=build/vocalOS.bin > /dev/null
 
 clean:
 	@rm -rf build
