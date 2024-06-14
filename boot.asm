@@ -2,6 +2,7 @@
 ;        Initialization
 ; ------------------------------
 [org 0x7c00]
+start:
 mov ah, 0x0e
 mov bx, questionName
 call printString
@@ -33,8 +34,10 @@ finishInput:
     int 0x10
     mov bx, cx
     call printNumber
+    call printEmptyLine
+    call printEmptyLine
 
-jmp $
+jmp start
 
 ; ------------------------------
 ;         Functions
@@ -53,6 +56,14 @@ printNumber:
     add bx, '0'
     mov ah, 0x0e
     mov al, bl
+    int 0x10
+    ret
+
+printEmptyLine:
+    mov ah, 0x0e
+    mov al, 0x0A
+    int 0x10
+    mov al, 0x0D
     int 0x10
     ret
 
