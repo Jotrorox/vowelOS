@@ -1,8 +1,13 @@
-; ------------------------------
-;        Initialization
-; ------------------------------
+; ==============================
+; |       Initialization       |
+; ==============================
 [org 0x7c00]
+
+; ============================== 
+; |       Code Section         |
+; ==============================
 start:
+
 mov ah, 0x0e
 mov bx, questionName
 call printString
@@ -27,11 +32,7 @@ readInput:
 
 finishInput:
     mov byte [bx], 0x00
-    mov ah, 0x0e
-    mov al, 0x0A
-    int 0x10
-    mov al, 0x0D
-    int 0x10
+    call printEmptyLine
     mov bx, cx
     call printNumber
     call printEmptyLine
@@ -70,21 +71,17 @@ printEmptyLine:
 return:
     ret
 
-; ------------------------------
-;         Data Section
-; ------------------------------
+; ==============================
+; |        Data Section        |
+; ==============================
 questionName:
     db "What is the string you want to know the number of vowels in?", 0x0A, 0x0D, 0
 
 userInput:
     times 100 db 0
 
-; ------------------------------
-;         Boot Sector
-; ------------------------------
-
-; This part is responsible for creating the boot sector
-; The boot sector is 512 bytes long, so we need to fill it up with 0s
-; Then we add the boot signature at the end
+; ==============================
+; |        Boot Sector         |
+; ==============================
 times 510-($-$$) db 0
 db 0x55, 0xaa
