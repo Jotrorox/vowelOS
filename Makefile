@@ -1,9 +1,14 @@
+all: run
+
 build:
-	mkdir -p build
-	nasm -f bin boot.asm -o build/vocalOS.bin
+	@mkdir -p build
+	@nasm -f bin boot.asm -o build/vocalOS.bin > /dev/null
 
 run:
-	qemu-system-x86_64 build/vocalOS.bin
+	@make build
+	@qemu-system-x86_64 build/vocalOS.bin > /dev/null
 
 clean:
-	rm -rf build
+	@rm -rf build
+
+.PHONY: all build run clean

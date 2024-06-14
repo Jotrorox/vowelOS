@@ -20,6 +20,9 @@ readInput:
 finishInput:
     mov byte [bx], 0x00
 
+    mov bx, userInput
+    call printString
+
 jmp $
 
 printString:
