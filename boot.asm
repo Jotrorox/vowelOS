@@ -1,30 +1,22 @@
-; boot.asm
-[org 0x7c00] ; Origin, BIOS loads boot sector here
+[org 0x7c00]
+mov ah, 0x0e
+mov bx, questionName
 
-start:
-    mov ax, 0x07C0 ; Set up segments
-    add ax, 0x20   ; Adjust for space taken by BIOS
-    mov ds, ax     ; Data segment
-    mov es, ax     ; Extra segment
+printString:
+    mov al, [bx]
+    cmp al, 0
+    je end
+    int 0x10
+    inc bx
+    jmp printString
 
-    mov si, msg    ; Point SI to our message
-    call print     ; Call our print function
+int 0x10
 
-hang:
-    jmp hang       ; Hang in infinite loop
+end:
+    jmp $
 
-print:
-    lodsb          ; Load next character from string to AL
-    or al, al      ; Test if end of string
-    jz return      ; If zero flag set, return
-    mov ah, 0x0E   ; BIOS teletype function
-    int 0x10       ; Call video services
-    jmp print      ; Repeat until done
+questionName:
+    db "What is the string you want to know the number of vowels in?", 0
 
-return:
-    ret            ; Return from subroutine
-
-msg db 'Hello, World!', 0 ; Our message ends with a null byte
-
-times 510 - ($ - $$) db 0 ; Pad remainder of boot sector with zeros
-dw 0xAA55               ; Boot signature at the end of the 512-byte sector
+times 510-($-$$) db 0
+db 0x55, 0xaa
