@@ -1,4 +1,11 @@
+void print(const char* str) {
+    unsigned short* video_memory = (unsigned short*)0xb8000;
+    for (int i = 0; str[i] != '\0'; ++i) {
+        video_memory[i] = (video_memory[i] & 0xFF00) | str[i];
+    }
+}
+
 extern "C" void main(){
-    *(char*)0xb8000 = 'H';
+    print("Hello, World!");
     return;
 }
