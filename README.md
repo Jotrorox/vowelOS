@@ -27,22 +27,22 @@
 ## :dart: About ##
 
 Oh, It is that time of the week again ... I'm doing weird things based of the ideas by CodingSloth ([I can still recommend his Newsletter btw.](https://slothbytes.beehiiv.com/subscribe?ref=leLwLkdsZI)).
-And yeah this time I think I really got bored, because guess what I wrote an entire operating system in pure assembly, only to do his coding exercise.
+And yeah this time I think I really got bored, because guess what I wrote an entire operating system, only to do his coding exercise.
 So this is this project just try and enjoy it and If you need nything just tell me.
 
 ## :sparkles: Features ##
 
 :heavy_check_mark: Booting\
-:heavy_check_mark: User Input\
-:heavy_check_mark: Program Loop\
-:heavy_multiplication_x: Vowel Counting\
+:heavy_multiplication_x: User Input\
+:heavy_multiplication_x: Program Loop\
+:heavy_check_mark: Vowel Counting\
 :heavy_multiplication_x: Colorful Printing
 
 **If you want more info or help just hit me up with the ways listed in the Starting section or on my website ([jotrorox.com](https://jotrorox.com/))**
 
 ## :white_check_mark: Development Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), make and [nasm](https://nasm.us/) installed.
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [GCC Cross-Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) and [nasm](https://nasm.us/) installed. (Atleast that should be it)
 
 <br>
 
@@ -58,10 +58,10 @@ $ git clone https://github.com/Jotrorox/vowelOS
 $ cd vowelOS
 
 # Build the Project
-$ make build
+$ ./build
 
 # Run the Project
-$ make
+$ ./run
 ```
 
 **If you encounter Problems just hit me up, I'm happy to help you get started**\
@@ -73,6 +73,9 @@ So you really wanna use this for god knows what?\
 Here you go I guess ...
 
 #### Building an Iso #####
+
+> Outdated
+
 ```bash
 # Compile the code
 $ nasm -f bin boot.asm -o boot.bin
