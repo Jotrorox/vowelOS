@@ -25,125 +25,71 @@ void clearScreen()
     setCursor(0, 0);
 }
 
-void print(char *str)
-{
-    char *videoMemory = (char *)VIDEO_ADDRESS;
-    int offset = (cursorY * MAX_COLS + cursorX) * 2;
-    for (int i = 0; str[i] != '\0';)
-    {
-        if (str[i] == '\n')
-        {
-            cursorY++;
-            cursorX = 0;
-            i++;
-            continue;
-        }
-
-        if ((unsigned char)str[i] <= 0x7F)
-        {
-            videoMemory[offset] = str[i];
-            videoMemory[offset + 1] = WHITE_ON_BLACK;
-            cursorX++;
-            i++;
-        }
-        else
-        {
-            i++;
-        }
-
-        offset = (cursorY * MAX_COLS + cursorX) * 2;
-
-        if (cursorX >= MAX_COLS)
-        {
-            cursorX = 0;
-            cursorY++;
-        }
-    }
-}
-
-void print(int number)
-{
-    char str[32];
-    int i = 0;
-    while (number > 0)
-    {
-        str[i] = number % 10 + '0';
-        number /= 10;
-        i++;
-    }
-    str[i] = '\0';
-    char temp;
-    for (int j = 0; j < i / 2; j++)
-    {
-        temp = str[j];
-        str[j] = str[i - j - 1];
-        str[i - j - 1] = temp;
-    }
-    print(str);
-}
-
 void print(char c)
 {
-    char str[2] = {c, '\0'};
-    print(str);
+    char *videoMemory = (char *)VIDEO_ADDRESS;
+    if (c == '\n')
+    {
+        cursorX = 0;
+        cursorY++;
+    }
+    else
+    {
+        videoMemory[(cursorY * MAX_COLS + cursorX) * 2] = c;
+        videoMemory[(cursorY * MAX_COLS + cursorX) * 2 + 1] = WHITE_ON_BLACK;
+        cursorX++;
+    }
+
+    if (cursorX >= MAX_COLS)
+    {
+        cursorX = 0;
+        cursorY++;
+    }
+
+    if (cursorY >= MAX_ROWS)
+    {
+        cursorY = 0;
+    }
+}
+
+void print(const char *str)
+{
+    for (int i = 0; str[i] != '\0'; ++i)
+    {
+        print(str[i]);
+    }
+}
+
+void print(int num)
+{
+    char str[128];
+    int i = 0;
+    while (num)
+    {
+        str[i++] = num % 10 + '0';
+        num /= 10;
+    }
+
+    if (i == 0)
+    {
+        str[i++] = '0';
+    }
+
+    str[i] = '\0';
+
+    for (int j = i - 1; j >= 0; --j)
+    {
+        print(str[j]);
+    }
 }
 
 const char keymap[] = {
-    0,
-    27,
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '0',
-    '-',
-    '=',
-    '\b',
-    '\t',
-    'q',
-    'w',
-    'e',
-    'r',
-    't',
-    'y',
-    'u',
-    'i',
-    'o',
-    'p',
-    '[',
-    ']',
-    '\n',
-    '?',
-    'a',
-    's',
-    'd',
-    'f',
-    'g',
-    'h',
-    'j',
-    'k',
-    'l',
-    ';',
-    '\'',
-    '`',
-    '#',
-    '\\',
-    'z',
-    'x',
-    'c',
-    'v',
-    'b',
-    'n',
-    'm',
-    ',',
-    '.',
-    '/',
-    ' ',
+    0, 27, '1', '2', '3', '4', '5', '6', '7', '8',
+    '9', '0', '-', '=', '\b', '\t', 'q', 'w', 'e', 'r',
+    't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', '?',
+    'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',
+    '\'', '`', '#', '\\', 'z', 'x', 'c', 'v', 'b', 'n',
+    'm', ',', '.', '/', ' ',
 };
 
 char getAsciiFromScanCode(unsigned char scancode)
@@ -195,36 +141,40 @@ int countVowels(const char *str)
     return count;
 }
 
-extern "C" void main()
+void main()
 {
-    clearScreen();
-
-    print("Enter a string: \n");
-
-    char str[128];
-    int i = 0;
-
-    while (true && i < 128)
+    while (true)
     {
-        char c = getChar();
+        print("Enter a string: \n");
 
-        if (c == '\n')
+        char str[128];
+        int i = 0;
+
+        while (true && i < 127)
         {
-            break;
+            char c = getChar();
+
+            if (c == '\n')
+            {
+                break;
+            }
+
+            print(c);
+
+            str[i] = c;
+            i++;
         }
 
-        print(c);
+        str[i] = '\0';
 
-        str[i] = c;
-        i++;
+        print("\n");
+
+        int vowels = countVowels(str);
+
+        print("Number of vowels: ");
+        print(vowels);
+        print("\n\n");
     }
-
-    print("\n");
-
-    int vowels = countVowels(str);
-
-    print("Number of vowels: ");
-    print(vowels);
 
     return;
 }
