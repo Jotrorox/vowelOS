@@ -1,62 +1,33 @@
 #define KEYBOARD_PORT 0x60
+#define VIDEO_ADDRESS 0xb8000
+#define MAX_ROWS 25
+#define MAX_COLS 80
+#define WHITE_ON_BLACK 0x0f
 
-void print(const char* str) {
-    unsigned short* video_memory = (unsigned short*)0xb8000;
-    for (int i = 0; str[i] != '\0'; ++i) {
-        video_memory[i] = (video_memory[i] & 0xFF00) | str[i];
+int cursorX = 0;
+int cursorY = 0;
+
+void clearScreen() {
+    char* videoMemory = (char*) VIDEO_ADDRESS;
+    for (int i = 0; i < MAX_COLS * MAX_ROWS; i++) {
+        videoMemory[i * 2] = ' ';
+        videoMemory[i * 2 + 1] = WHITE_ON_BLACK;
     }
 }
 
 void print(char* str) {
-    unsigned short* video_memory = (unsigned short*)0xb8000;
-    for (int i = 0; str[i] != '\0'; ++i) {
-        video_memory[i] = (video_memory[i] & 0xFF00) | str[i];
-    }
-}
-
-void print(char c) {
-    unsigned short* video_memory = (unsigned short*)0xb8000;
-    video_memory[0] = (video_memory[0] & 0xFF00) | c;
-}
-
-void print(int i) {
-    char str[11];
-    int j = 0;
-    if (i < 0) {
-        print("-");
-        i = -i;
-    }
-    while (i > 0) {
-        str[j++] = (char)(i % 10 + '0');
-        i /= 10;
-    }
-    if (j == 0) {
-        str[j++] = '0';
-    }
-    for (int k = j - 1; k >= 0; --k) {
-        print(str[k]);
-    }
-}
-
-void print(unsigned int i) {
-    char str[11];
-    int j = 0;
-    while (i > 0) {
-        str[j++] = (char)(i % 10 + '0');
-        i /= 10;
-    }
-    if (j == 0) {
-        str[j++] = '0';
-    }
-    for (int k = j - 1; k >= 0; --k) {
-        print(str[k]);
-    }
-}
-
-void printNewLine() {
-    unsigned short* video_memory = (unsigned short*)0xb8000;
-    for (int i = 80; i < 160; ++i) {
-        video_memory[i] = (video_memory[i] & 0xFF00) | ' ';
+    char* videoMemory = (char*) VIDEO_ADDRESS;
+    int offset = (cursorY * MAX_COLS + cursorX) * 2;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '\n') {
+            cursorY++;
+            cursorX = 0;
+        } else {
+            videoMemory[offset] = str[i];
+            videoMemory[offset + 1] = WHITE_ON_BLACK;
+            cursorX++;
+        }
+        offset = (cursorY * MAX_COLS + cursorX) * 2;
     }
 }
 
@@ -79,7 +50,8 @@ int countVowels(const char* str) {
 }
 
 extern "C" void main(){
-    print(countVowels("hello world"));
+    print("Hallo Welt\n");
+    print("Hello World\n");
     
     return;
 }
