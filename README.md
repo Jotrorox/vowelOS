@@ -10,7 +10,7 @@
 </p>
 
 <h4 align="center"> 
-	🚧  Vowel OS 🚀 Under construction...  🚧
+	🚧  Vowel OS 🚀 Under heavy construction...  🚧
 </h4> 
 
 <hr>
@@ -36,7 +36,7 @@ So this is this project just try and enjoy it and if you need anything just tell
 
 ## :sparkles: Features ##
 
-> Be warned this is still in development so it may not work as well as you'd (or I'd) hope it would.
+> Be warned this is still in early development so it may not work as well as you'd (or I'd) hope it would.
 
 :heavy_check_mark: Booting\
 :heavy_check_mark: User Input\
