@@ -147,10 +147,10 @@ void main()
     {
         print("Enter a string: \n");
 
-        char str[128];
+        char str[256];
         int i = 0;
 
-        while (true && i < 127)
+        while (true && i < 255)
         {
             char c = getChar();
 

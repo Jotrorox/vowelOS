@@ -34,7 +34,7 @@ So this is this project just try and enjoy it and If you need nything just tell 
 
 :heavy_check_mark: Booting\
 :heavy_check_mark: User Input\
-:heavy_multiplication_x: Program Loop\
+:heavy_check_mark: Program Loop\
 :heavy_check_mark: Vowel Counting\
 :heavy_multiplication_x: Colorful Printing
 
