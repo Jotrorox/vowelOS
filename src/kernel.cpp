@@ -199,12 +199,32 @@ extern "C" void main()
 {
     clearScreen();
 
-    while (true)
+    print("Enter a string: \n");
+
+    char str[128];
+    int i = 0;
+
+    while (true && i < 128)
     {
         char c = getChar();
 
+        if (c == '\n')
+        {
+            break;
+        }
+
         print(c);
+
+        str[i] = c;
+        i++;
     }
+
+    print("\n");
+
+    int vowels = countVowels(str);
+
+    print("Number of vowels: ");
+    print(vowels);
 
     return;
 }
