@@ -9,6 +9,10 @@
   <img src="https://img.shields.io/github/stars/jotrorox/vowelOS?style=flat-square" alt="GitHub Stars Badge">
 </p>
 
+<h4 align="center"> 
+	🚧  Vowel OS 🚀 Under construction...  🚧
+</h4> 
+
 <hr>
 
 <p align="center">
@@ -27,10 +31,12 @@
 ## :dart: About ##
 
 Oh, It is that time of the week again ... I'm doing weird things based of the ideas by CodingSloth ([I can still recommend his Newsletter btw.](https://slothbytes.beehiiv.com/subscribe?ref=leLwLkdsZI)).
-And yeah this time I think I really got bored, because guess what I wrote an entire operating system, only to do his coding exercise.
-So this is this project just try and enjoy it and If you need nything just tell me.
+And yeah this time I think I really got bored, because guess what I wrote an entire operating system, only to do the coding exercise.
+So this is this project just try and enjoy it and if you need anything just tell me.
 
 ## :sparkles: Features ##
+
+> Be warned this is still in development so it may not work as well as you'd (or I'd) hope it would.
 
 :heavy_check_mark: Booting\
 :heavy_check_mark: User Input\
