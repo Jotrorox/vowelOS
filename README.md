@@ -61,7 +61,7 @@ $ cd vowelOS
 $ ./build.sh
 
 # Run the Project
-$ ./run.sh
+$ ./build.sh run
 ```
 
 **If you encounter Problems just hit me up, I'm happy to help you get started**\

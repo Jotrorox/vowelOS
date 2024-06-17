@@ -12,7 +12,7 @@ nasm "src/zero_sect.asm" -f bin -o "build/zero_sect.bin"
 cat "build/bootable_kernel.bin" "build/zero_sect.bin" > "build/OS.bin"
 
 if [ "$1" == "run" ]; then
-    qemu-system-i386 -fda "build/OS.bin"
+    qemu-system-x86_64 -drive format=raw,file="build/OS.bin",index=0,if=floppy,  -m 128M
 fi
 
 if [ "$1" == "iso" ]; then
