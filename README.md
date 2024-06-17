@@ -33,7 +33,7 @@ So this is this project just try and enjoy it and If you need nything just tell 
 ## :sparkles: Features ##
 
 :heavy_check_mark: Booting\
-:heavy_multiplication_x: User Input\
+:heavy_check_mark: User Input\
 :heavy_multiplication_x: Program Loop\
 :heavy_check_mark: Vowel Counting\
 :heavy_multiplication_x: Colorful Printing
@@ -58,10 +58,10 @@ $ git clone https://github.com/Jotrorox/vowelOS
 $ cd vowelOS
 
 # Build the Project
-$ ./build
+$ ./build.sh
 
 # Run the Project
-$ ./run
+$ ./run.sh
 ```
 
 **If you encounter Problems just hit me up, I'm happy to help you get started**\
@@ -72,20 +72,9 @@ $ ./run
 So you really wanna use this for god knows what?\
 Here you go I guess ...
 
-#### Building an Iso #####
-
-> Outdated
-
 ```bash
-# Compile the code
-$ nasm -f bin boot.asm -o boot.bin
-
-# Creating a floppy disk that holds all the data
-$ dd if=/dev/zero of=floppy.img bs=1024 count=1440
-$ dd if=boot.bin of=floppy.img conv=notrunc
-
-# Building the Iso
-$ mkisofs -o boot.iso -b floppy.img .
+# Build an ISO
+$ ./build.sh iso
 ```
 
 Then just run it of a usb or in virtualbox
