@@ -49,6 +49,33 @@ void print(int number) {
     print(str);
 }
 
+void print(char c) {
+    char str[2];
+    str[0] = c;
+    str[1] = '\0';
+    print(str);
+}
+
+void print(int* number) {
+    print(*number);
+}
+
+void print(const char* str) {
+    char* videoMemory = (char*) VIDEO_ADDRESS;
+    int offset = (cursorY * MAX_COLS + cursorX) * 2;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '\n') {
+            cursorY++;
+            cursorX = 0;
+        } else {
+            videoMemory[offset] = str[i];
+            videoMemory[offset + 1] = WHITE_ON_BLACK;
+            cursorX++;
+        }
+        offset = (cursorY * MAX_COLS + cursorX) * 2;
+    }
+}
+
 int strlen(const char* str) {
     int len = 0;
     while (str[len]) {
