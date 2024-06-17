@@ -31,6 +31,24 @@ void print(char* str) {
     }
 }
 
+void print(int number) {
+    char str[32];
+    int i = 0;
+    while (number > 0) {
+        str[i] = number % 10 + '0';
+        number /= 10;
+        i++;
+    }
+    str[i] = '\0';
+    char temp;
+    for (int j = 0; j < i / 2; j++) {
+        temp = str[j];
+        str[j] = str[i - j - 1];
+        str[i - j - 1] = temp;
+    }
+    print(str);
+}
+
 int strlen(const char* str) {
     int len = 0;
     while (str[len]) {
@@ -52,6 +70,8 @@ int countVowels(const char* str) {
 extern "C" void main(){
     print("Hallo Welt\n");
     print("Hello World\n");
+
+    print(countVowels("Hello World\n"));
     
     return;
 }
