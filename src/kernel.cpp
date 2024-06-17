@@ -31,7 +31,6 @@ void print(char *str)
     int offset = (cursorY * MAX_COLS + cursorX) * 2;
     for (int i = 0; str[i] != '\0';)
     {
-        // Handle newline characters
         if (str[i] == '\n')
         {
             cursorY++;
@@ -40,25 +39,20 @@ void print(char *str)
             continue;
         }
 
-        // Check if the character is a single-byte ASCII character
         if ((unsigned char)str[i] <= 0x7F)
         {
             videoMemory[offset] = str[i];
             videoMemory[offset + 1] = WHITE_ON_BLACK;
             cursorX++;
-            i++; // Move to the next character
+            i++;
         }
         else
         {
-            // For non-ASCII characters, you can add handling here
-            // For now, we'll just skip them
-            i++; // Skip this character as a simple way to avoid displaying random characters
-                 // Note: This is not a proper UTF-8 handling mechanism
+            i++;
         }
 
         offset = (cursorY * MAX_COLS + cursorX) * 2;
 
-        // Ensure we wrap text to the next line if we reach the end of the current line
         if (cursorX >= MAX_COLS)
         {
             cursorX = 0;
@@ -95,12 +89,61 @@ void print(char c)
 }
 
 const char keymap[] = {
-    0,   27, '1', '2', '3', '4', '5', '6', '7', '8',
-    '9', '0', '-', '=', '\b', '\t',
-    'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[',
-    ']', '\n', '?', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',
-    '\'', '`', '#', '\\', 'z', 'x', 'c', 'v', 'b', 'n',
-    'm', ',', '.', '/', ' ',
+    0,
+    27,
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '0',
+    '-',
+    '=',
+    '\b',
+    '\t',
+    'q',
+    'w',
+    'e',
+    'r',
+    't',
+    'y',
+    'u',
+    'i',
+    'o',
+    'p',
+    '[',
+    ']',
+    '\n',
+    '?',
+    'a',
+    's',
+    'd',
+    'f',
+    'g',
+    'h',
+    'j',
+    'k',
+    'l',
+    ';',
+    '\'',
+    '`',
+    '#',
+    '\\',
+    'z',
+    'x',
+    'c',
+    'v',
+    'b',
+    'n',
+    'm',
+    ',',
+    '.',
+    '/',
+    ' ',
 };
 
 char getAsciiFromScanCode(unsigned char scancode)
@@ -109,7 +152,7 @@ char getAsciiFromScanCode(unsigned char scancode)
     {
         return keymap[scancode];
     }
-    return 0; // Return null character if unknown
+    return 0;
 }
 
 char getChar()
@@ -125,7 +168,7 @@ char getChar()
         : "=r"(scancode)
         :
         : "%al");
-    
+
     return getAsciiFromScanCode(scancode & 0x7F);
 }
 
@@ -156,18 +199,10 @@ extern "C" void main()
 {
     clearScreen();
 
-    print("Hallo Welt\n");
-    print("Hello World\n");
-
-    print(countVowels("Hello World\n"));
-
-    print("\n");
-
-    print('a');
-
     while (true)
     {
         char c = getChar();
+
         print(c);
     }
 
