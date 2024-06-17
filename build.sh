@@ -1,6 +1,11 @@
 #!/bin/bash
 
 rm -rf build
+
+if [ "$1" == "clean" ]; then
+    exit 0
+fi
+
 mkdir -p build
 
 i386-elf-gcc -ffreestanding -m32 -g -c "src/kernel.cpp" -o "build/kernel.o"
@@ -20,4 +25,12 @@ if [ "$1" == "iso" ]; then
     dd if=build/OS.bin of=build/floppy.img conv=notrunc
 
     mkisofs -o vowel.iso -b build/floppy.img .
+
+    if [ "$2" == "run" ]; then
+        qemu-system-x86_64 -cdrom vowel.iso -m 128M
+    fi
+
+    if [ "$2" == "clean" ]; then
+        rm -rf build
+    fi
 fi
