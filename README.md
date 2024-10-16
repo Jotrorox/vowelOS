@@ -10,7 +10,7 @@
 </p>
 
 <h4 align="center"> 
-	🚧  Vowel OS 🚀 Under heavy construction...  🚧
+	🚧  Vowel OS 🚀 Archived...  🚧
 </h4> 
 
 <hr>
